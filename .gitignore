@@ -1,0 +1,9 @@
+# Секреты
+.env
+
+# Состояние бота: администратор и очередь заявок
+server/data/
+
+# Node
+node_modules/
+npm-debug.log*

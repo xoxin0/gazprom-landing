@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Газпром — энергия для жизни</title>
+  <meta name="description" content="Добыча, транспортировка и поставка природного газа. Надёжная энергия для дома и промышленности." />
+  <link rel="icon" href="assets/Gazprom-Logo-rus.svg.webp" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="header" id="header">
+    <div class="shell header__inner">
+      <a class="logo" href="#hero" aria-label="Газпром — на главную">
+        <img src="assets/Gazprom-Logo-rus.svg.webp" alt="Газпром" width="150" height="72" />
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a class="nav__link" href="#about">О компании</a>
+        <a class="nav__link" href="#directions">Направления</a>
+        <a class="nav__link" href="#numbers">Показатели</a>
+        <a class="nav__link" href="#contact">Контакты</a>
+        <a class="btn btn--primary btn--sm nav__cta" href="#contact">
+          <span>Оставить заявку</span>
+          <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <span class="hero__aurora hero__aurora--a"></span>
+        <span class="hero__aurora hero__aurora--b"></span>
+        <span class="hero__grid"></span>
+      </div>
+
+      <div class="shell hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow reveal"><span class="eyebrow__rule"></span>Природный газ · с 1989 года</p>
+
+          <h1 class="hero__title reveal" data-delay="1">
+            Энергия, которая<br />
+            <span class="accent">соединяет</span> континенты
+          </h1>
+
+          <p class="hero__lead reveal" data-delay="2">
+            Добываем, транспортируем и поставляем природный газ более чем в 30 стран мира.
+            Стабильность поставок, экологичность и технологии нового поколения.
+          </p>
+
+          <div class="hero__actions reveal" data-delay="3">
+            <a class="btn btn--primary" href="#contact">
+              <span>Оставить заявку</span>
+              <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--outline" href="#about">
+              <span>О компании</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Пламя -->
+        <div class="hero__visual reveal" data-delay="2" aria-hidden="true">
+          <div class="stage">
+            <!-- Порядок важен: диск — подложка, свечение поверх него, пламя сверху -->
+            <span class="stage__disc"></span>
+            <span class="stage__halo"></span>
+            <span class="stage__ring stage__ring--outer"></span>
+            <span class="stage__ring stage__ring--inner"></span>
+
+            <svg class="flame" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="flameOuter" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%"   stop-color="#63b8ea" />
+                  <stop offset="55%"  stop-color="#0f8ad2" />
+                  <stop offset="100%" stop-color="#005e99" />
+                </linearGradient>
+                <linearGradient id="flameCore" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%"   stop-color="#eaf7ff" />
+                  <stop offset="45%"  stop-color="#8ccdf2" />
+                  <stop offset="100%" stop-color="#1e93d8" />
+                </linearGradient>
+                <filter id="flameGlow" x="-70%" y="-70%" width="240%" height="240%">
+                  <feGaussianBlur stdDeviation="9" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="coreGlow" x="-90%" y="-90%" width="280%" height="280%">
+                  <feGaussianBlur stdDeviation="5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <g class="flame__body">
+                <!-- Остроконечное пламя: вершина — излом, низ — округлый -->
+                <path class="flame__outer"
+                      d="M100 12c4 32 27 66 42 94 12 23 19 45 19 68 0 39-27 68-61 68s-61-29-61-68c0-23 7-45 19-68 15-28 38-62 42-94Z" />
+                <path class="flame__core"
+                      d="M100 104c2 20 17 44 25 60 7 14 10 26 10 37 0 21-15 36-35 36s-35-15-35-36c0-11 3-23 10-37 8-16 23-40 25-60Z" />
+              </g>
+
+              <g class="sparks">
+                <circle class="spark spark--1" cx="58"  cy="200" r="4"   />
+                <circle class="spark spark--2" cx="145" cy="188" r="3"   />
+                <circle class="spark spark--3" cx="76"  cy="216" r="2.6" />
+                <circle class="spark spark--4" cx="130" cy="210" r="3.4" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Строка показателей -->
+      <div class="shell hero__strip reveal" data-delay="3">
+        <div class="strip__item">
+          <span class="strip__value">175 000 км</span>
+          <span class="strip__label">магистральных газопроводов</span>
+        </div>
+        <div class="strip__item">
+          <span class="strip__value">30+ стран</span>
+          <span class="strip__label">география поставок</span>
+        </div>
+        <div class="strip__item">
+          <span class="strip__value">24/7</span>
+          <span class="strip__label">диспетчерский контроль</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="section" id="about">
+      <div class="shell split">
+        <div class="split__aside">
+          <p class="eyebrow reveal"><span class="eyebrow__rule"></span>О компании</p>
+          <h2 class="title reveal" data-delay="1">Надёжность<br />на каждом<br />километре</h2>
+          <p class="lead reveal" data-delay="2">
+            Единая система газоснабжения — крупнейшая в мире. Мы отвечаем за весь путь газа:
+            от разведки месторождения до конфорки в вашем доме.
+          </p>
+        </div>
+
+        <div class="split__body">
+          <article class="feature reveal">
+            <span class="feature__index">01</span>
+            <div class="feature__text">
+              <h3 class="feature__title">Полный цикл</h3>
+              <p>Геологоразведка, добыча, переработка, транспортировка и сбыт — в единой технологической цепочке без посредников.</p>
+            </div>
+          </article>
+
+          <article class="feature reveal" data-delay="1">
+            <span class="feature__index">02</span>
+            <div class="feature__text">
+              <h3 class="feature__title">География поставок</h3>
+              <p>Более 30 стран и 175 000 км магистралей под непрерывным диспетчерским контролем в режиме реального времени.</p>
+            </div>
+          </article>
+
+          <article class="feature reveal" data-delay="2">
+            <span class="feature__index">03</span>
+            <div class="feature__text">
+              <h3 class="feature__title">Чистая энергия</h3>
+              <p>Природный газ — самое экологичное ископаемое топливо. Программы снижения выбросов действуют на всех активах.</p>
+            </div>
+          </article>
+
+          <article class="feature reveal" data-delay="3">
+            <span class="feature__index">04</span>
+            <div class="feature__text">
+              <h3 class="feature__title">Технологии и люди</h3>
+              <p>Собственные научные центры, инженерные школы и более 470 000 сотрудников по всей стране.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Directions ===== -->
+    <section class="section section--soft" id="directions">
+      <div class="shell">
+        <header class="section__head">
+          <p class="eyebrow reveal"><span class="eyebrow__rule"></span>Направления</p>
+          <h2 class="title reveal" data-delay="1">Чем мы занимаемся</h2>
+        </header>
+
+        <div class="rows">
+          <a class="row reveal" href="pages/naselenie.html">
+            <span class="row__num">01</span>
+            <h3 class="row__title">Газоснабжение населения</h3>
+            <p class="row__text">Подключение частных домов и посёлков, обслуживание внутридомового оборудования, круглосуточная аварийная служба.</p>
+            <span class="row__mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+
+          <a class="row reveal" data-delay="1" href="pages/promyshlennost.html">
+            <span class="row__num">02</span>
+            <h3 class="row__title">Промышленным клиентам</h3>
+            <p class="row__text">Долгосрочные контракты на поставку, индивидуальные тарифные решения и техническое сопровождение объектов.</p>
+            <span class="row__mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+
+          <a class="row reveal" data-delay="2" href="pages/spg.html">
+            <span class="row__num">03</span>
+            <h3 class="row__title">СПГ и газомоторное топливо</h3>
+            <p class="row__text">Развитие сети заправок, сжижение и малотоннажное производство для удалённых регионов страны.</p>
+            <span class="row__mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+
+          <a class="row reveal" data-delay="3" href="pages/inzhiniring.html">
+            <span class="row__num">04</span>
+            <h3 class="row__title">Инжиниринг и сервис</h3>
+            <p class="row__text">Проектирование газопроводов, диагностика, модернизация и капитальный ремонт инфраструктуры.</p>
+            <span class="row__mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Numbers ===== -->
+    <section class="section numbers" id="numbers">
+      <div class="numbers__bg" aria-hidden="true"></div>
+
+      <div class="shell">
+        <header class="section__head section__head--center">
+          <p class="eyebrow eyebrow--light reveal"><span class="eyebrow__rule"></span>Показатели</p>
+          <h2 class="title title--light reveal" data-delay="1">Масштаб в цифрах</h2>
+        </header>
+
+        <div class="stats">
+          <div class="stat reveal">
+            <span class="stat__value" data-count="175" data-suffix="&#8239;000">0</span>
+            <span class="stat__label">км газопроводов</span>
+          </div>
+          <div class="stat reveal" data-delay="1">
+            <span class="stat__value" data-count="30" data-suffix="+">0</span>
+            <span class="stat__label">стран поставок</span>
+          </div>
+          <div class="stat reveal" data-delay="2">
+            <span class="stat__value" data-count="470" data-suffix="&#8239;млрд м³">0</span>
+            <span class="stat__label">добыча газа в год</span>
+          </div>
+          <div class="stat reveal" data-delay="3">
+            <span class="stat__value" data-count="99" data-suffix=",8%">0</span>
+            <span class="stat__label">надёжность поставок</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="section section--soft" id="contact">
+      <div class="shell contact">
+        <div class="contact__info">
+          <p class="eyebrow reveal"><span class="eyebrow__rule"></span>Обратная связь</p>
+          <h2 class="title reveal" data-delay="1">Расскажите<br />о вашей задаче</h2>
+          <p class="lead reveal" data-delay="2">
+            Ответим в течение одного рабочего дня. Подберём решение по подключению,
+            тарифу или сервисному обслуживанию.
+          </p>
+
+          <ul class="contacts reveal" data-delay="3">
+            <li class="contacts__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+              <a href="tel:+78001234567">8 800 123-45-67</a>
+            </li>
+            <li class="contacts__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              <a href="mailto:info@example.ru">info@example.ru</a>
+            </li>
+            <li class="contacts__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span>Пн–Пт, 09:00–19:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form reveal" data-delay="2" id="feedbackForm" novalidate>
+          <span class="form__corner form__corner--tl" aria-hidden="true"></span>
+          <span class="form__corner form__corner--br" aria-hidden="true"></span>
+
+          <div class="field">
+            <label class="field__label" for="name">Имя</label>
+            <input class="field__input" type="text" id="name" name="name" placeholder="Иван Иванов" required minlength="2" maxlength="80" autocomplete="name" />
+            <span class="field__error" data-error-for="name"></span>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label" for="phone">Телефон</label>
+              <input class="field__input" type="tel" id="phone" name="phone" placeholder="+7 (999) 000-00-00" required autocomplete="tel" />
+              <span class="field__error" data-error-for="phone"></span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="email">E-mail</label>
+              <input class="field__input" type="email" id="email" name="email" placeholder="mail@example.ru" required maxlength="120" autocomplete="email" />
+              <span class="field__error" data-error-for="email"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="topic">Тема обращения</label>
+            <select class="field__input field__input--select" id="topic" name="topic">
+              <option value="Подключение к сети">Подключение к сети</option>
+              <option value="Тарифы и договор">Тарифы и договор</option>
+              <option value="Сервисное обслуживание">Сервисное обслуживание</option>
+              <option value="Другое">Другое</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="message">Сообщение</label>
+            <textarea class="field__input field__input--area" id="message" name="message" rows="4" placeholder="Коротко опишите задачу" required minlength="10" maxlength="2000"></textarea>
+            <span class="field__error" data-error-for="message"></span>
+          </div>
+
+          <div class="field field--check">
+            <label class="check">
+              <input type="checkbox" id="agree" name="agree" required />
+              <span class="check__box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
+              </span>
+              <span class="check__text">Согласен на обработку персональных данных</span>
+            </label>
+            <span class="field__error" data-error-for="agree"></span>
+          </div>
+
+          <!-- Ловушка для ботов: реальный пользователь это поле не видит -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="company">Компания</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit">
+            <span>Отправить заявку</span>
+            <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+
+          <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="shell footer__inner">
+      <div class="footer__brand">
+        <img src="assets/Gazprom-Logo-rus.svg.webp" alt="Газпром" width="130" height="62" />
+        <p>Энергия для жизни каждого дня.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="#about">О компании</a>
+        <a href="#directions">Направления</a>
+        <a href="#numbers">Показатели</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </div>
+
+    <div class="shell footer__bottom">
+      <span>© 2026 · Демонстрационный макет лендинга</span>
+      <a href="#hero" class="footer__top">
+        Наверх
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

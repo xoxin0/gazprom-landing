@@ -1,0 +1,17 @@
+# Деплой на Render: New → Blueprint → указать этот репозиторий.
+# Значения TELEGRAM_* задаются в интерфейсе Render, в репозиторий не попадают.
+services:
+  - type: web
+    name: gazprom-landing
+    runtime: node
+    plan: starter          # free-план засыпает при простое, и бот перестаёт опрашивать Telegram
+    buildCommand: npm install
+    startCommand: node server/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false        # ввести вручную в панели Render
+      - key: TELEGRAM_ADMIN_ID
+        sync: false        # ввести вручную в панели Render
