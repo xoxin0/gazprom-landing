@@ -294,14 +294,28 @@
           body: JSON.stringify(payload),
         });
 
-        const result = await response.json().catch(() => ({}));
+        let result = null;
+        try {
+          result = JSON.parse(await response.text());
+        } catch {
+          // Ответ не JSON — значит сайт опубликован без бекенда
+        }
+
+        form.reset();
+        fields.forEach(clearError);
+
+        if (!result) {
+          setStatus(
+            'Демонстрационная версия сайта: форма проверена, но заявка никуда не отправляется. ' +
+            'Позвоните нам: 8 800 123-45-67'
+          );
+          return;
+        }
 
         if (!response.ok || !result.ok) {
           throw new Error(result.error || 'Не удалось отправить заявку');
         }
 
-        form.reset();
-        fields.forEach(clearError);
         setStatus(result.message || 'Спасибо! Заявка принята — свяжемся в течение рабочего дня.');
       } catch (error) {
         setStatus(
