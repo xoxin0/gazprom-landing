@@ -4,6 +4,7 @@ services:
   - type: web
     name: gazprom-landing
     runtime: node
+    region: frankfurt      # ближайший к России регион Render
     plan: starter          # free-план засыпает при простое, и бот перестаёт опрашивать Telegram
     buildCommand: npm install
     startCommand: node server/server.js
