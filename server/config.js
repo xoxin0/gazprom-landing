@@ -34,15 +34,15 @@ function loadEnvFile(file) {
 
 loadEnvFile(path.join(ROOT, '.env'));
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 export const config = {
   port: Number(process.env.PORT) || 5173,
 
-  // В контейнере слушать только localhost нельзя — снаружи такой порт недоступен
-  host: process.env.HOST || (isProduction ? '0.0.0.0' : '127.0.0.1'),
-
-  isProduction,
+  /*
+     По умолчанию слушаем все интерфейсы: на любом хостинге порт, привязанный
+     к localhost, снаружи недоступен, и приложение выглядит «упавшим».
+     Локально адрес сужается до 127.0.0.1 через HOST в .env — он есть в .env.example.
+  */
+  host: process.env.HOST || '0.0.0.0',
 
   /** Токен от @BotFather. Пока не задан — сайт работает, заявки копятся в очереди. */
   botToken: (process.env.TELEGRAM_BOT_TOKEN || '').trim(),

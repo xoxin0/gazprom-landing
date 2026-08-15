@@ -124,6 +124,54 @@ Telegram начнёт отвечать одному из них ошибкой 4
 Поэтому после деплоя локальный сервер нужно остановить. Для параллельной
 разработки заведите у @BotFather второго бота и держите его токен в `.env`.
 
+### Timeweb Cloud — приложение из репозитория
+
+Подходит, если не хочется администрировать сервер.
+
+1. Панель Timeweb Cloud → **Приложения** → **Создать приложение**.
+2. Тип — **Backend**, фреймворк **Node.js** (или **Docker**, если удобнее образ).
+3. Подключить GitHub и выбрать репозиторий `gazprom-landing`, ветка `main`.
+4. Команды сборки и запуска:
+   - build: `npm install`
+   - start: `node server/server.js`
+5. Порт приложения — `8080`, и добавить переменные окружения:
+   `PORT=8080`, `NODE_ENV=production`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ADMIN_ID`.
+6. Задеплоить и проверить `https://<адрес>/api/health` — должен вернуть JSON
+   с `"configured": true` и `"adminAssigned": true`.
+
+Диск у приложения эфемерный, поэтому `TELEGRAM_ADMIN_ID` обязателен.
+
+### Timeweb Cloud — облачный сервер
+
+Дешевле и без ограничений платформы, но сервер придётся настроить самому.
+
+1. Создать облачный сервер: Ubuntu 24.04, минимальной конфигурации хватает.
+2. Подключиться по SSH и поставить Docker:
+
+```bash
+curl -fsSL https://get.docker.com | sh
+```
+
+3. Забрать код и запустить:
+
+```bash
+git clone https://github.com/<логин>/gazprom-landing.git
+cd gazprom-landing
+printf 'TELEGRAM_BOT_TOKEN=...\nTELEGRAM_ADMIN_ID=...\n' > .env
+docker compose up -d --build
+```
+
+Сайт поднимется на 80-м порту. `restart: unless-stopped` вернёт контейнер
+после перезагрузки сервера, том `state` сохранит очередь заявок.
+
+Обновление после правок в репозитории:
+
+```bash
+git pull && docker compose up -d --build
+```
+
+Для HTTPS понадобится домен и обратный прокси (Caddy или nginx с certbot).
+
 ### Render
 
 1. Запушить репозиторий на GitHub.

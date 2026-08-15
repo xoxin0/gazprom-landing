@@ -1,0 +1,27 @@
+# Запуск на своём сервере (в том числе на VDS Timeweb Cloud):
+#   TELEGRAM_BOT_TOKEN=... TELEGRAM_ADMIN_ID=... docker compose up -d --build
+# Либо положите эти переменные в файл .env рядом с compose-файлом.
+services:
+  app:
+    build: .
+    image: gazprom-landing
+    restart: unless-stopped
+    ports:
+      - "80:8080"
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:?нужен токен от @BotFather}
+      TELEGRAM_ADMIN_ID: ${TELEGRAM_ADMIN_ID:?нужен Telegram ID администратора}
+    volumes:
+      # Очередь заявок и счётчик переживают пересборку контейнера
+      - state:/app/server/data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  state:
