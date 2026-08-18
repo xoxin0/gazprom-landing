@@ -394,7 +394,7 @@ a:hover { color: var(--brand-700); }
 .hero__aurora {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(64px);
   will-change: transform, opacity;
 }
 .hero__aurora--a {
@@ -491,6 +491,7 @@ a:hover { color: var(--brand-700); }
     inset 0 1px 0 rgba(255, 255, 255, .9),
     inset 0 0 0 1px rgba(255, 255, 255, .7);
   animation: disc-in 1.4s var(--ease-out) .05s both;
+  will-change: transform, opacity;
 }
 
 /* Пульсирующее свечение — главный акцент, лежит поверх диска */
@@ -503,8 +504,10 @@ a:hover { color: var(--brand-700); }
     rgba(120, 200, 245, .85) 0%,
     rgba(0, 121, 194, .38) 40%,
     rgba(0, 121, 194, 0) 70%);
+  /* Блюр растрируется один раз: дальше слой только масштабируется и гаснет */
   filter: blur(22px);
   animation: halo-in 2.4s var(--ease-out) .3s both;
+  will-change: transform, opacity;
 }
 
 /* Орбитальные кольца */
@@ -512,6 +515,7 @@ a:hover { color: var(--brand-700); }
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 .stage__ring--outer {
   inset: 0;
@@ -524,37 +528,48 @@ a:hover { color: var(--brand-700); }
   animation: ring-in-reverse 2.2s var(--ease-out) .3s both;
 }
 
+/*
+   Качается сам <svg>, а не группа внутри него: трансформация элемента
+   уходит на композитор, тогда как анимация узлов SVG заставляла браузер
+   заново растрировать всю картинку на каждом кадре.
+
+   Фильтров здесь нет намеренно. drop-shadow поверх анимируемого контента
+   и feGaussianBlur на движущемся ядре пересчитывались 60 раз в секунду —
+   именно это и роняло кадры на телефонах. Свечение даёт статичный halo.
+*/
 .flame {
   position: relative;
   width: 46%;
   height: auto;
   overflow: visible;
-  filter:
-    drop-shadow(0 10px 26px rgba(0, 121, 194, .45))
-    drop-shadow(0 0 14px rgba(74, 169, 226, .55));
-}
-
-.flame__body {
-  transform-origin: 100px 242px;
+  transform-origin: 50% 86%;
   animation: flame-in 3.6s var(--ease-out) .25s both;
+  will-change: transform;
 }
 
-.flame__outer {
-  fill: url(#flameOuter);
-}
+.flame__outer { fill: url(#flameOuter); }
+.flame__core  { fill: url(#flameCore);  }
 
-.flame__core {
-  fill: url(#flameCore);
-  filter: url(#coreGlow);
-  transform-origin: 100px 237px;
-  animation: core-in 3.2s var(--ease-out) .45s both;
-}
-
+/*
+   Искры вынесены из SVG в обычные элементы: каждая получает свой слой
+   и анимируется только сдвигом и прозрачностью. Мягкий край даёт
+   радиальный градиент — он бесплатен, в отличие от drop-shadow.
+*/
 .spark {
-  fill: #7cc6ef;
-  filter: drop-shadow(0 0 5px rgba(74, 169, 226, .9));
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    #b4e2fa 0%,
+    rgba(124, 198, 239, .85) 45%,
+    rgba(124, 198, 239, 0) 72%);
   animation: spark-rise 2.8s var(--ease-out) both;
+  will-change: transform, opacity;
 }
+
+.spark--1 { left: 39%; top: 60%; width: 10px; height: 10px; }
+.spark--2 { left: 59%; top: 56%; width: 8px;  height: 8px;  }
+.spark--3 { left: 45%; top: 66%; width: 7px;  height: 7px;  }
+.spark--4 { left: 56%; top: 63%; width: 9px;  height: 9px;  }
 .spark--1 { animation-delay: .85s;  }
 .spark--2 { animation-delay: 1.1s;  }
 .spark--3 { animation-delay: 1.35s; }
@@ -598,17 +613,14 @@ a:hover { color: var(--brand-700); }
   100% { opacity: 1; transform: translateY(0)    scale(1, 1)        skewX(0deg);   }
 }
 
-/* Ядро качается в противофазе — так пламя выглядит живым */
-@keyframes core-in {
-  0%   { opacity: 0; transform: scale(.76, .58)   skewX(0deg);    }
-  22%  { opacity: 1; transform: scale(1.06, 1.10) skewX(-1.8deg); }
-  40%  { opacity: 1; transform: scale(.97, 1.04)  skewX(2.2deg);  }
-  58%  { opacity: 1; transform: scale(1.03, 1.05) skewX(-1.5deg); }
-  76%  { opacity: 1; transform: scale(.99, 1.02)  skewX(.9deg);   }
-  100% { opacity: 1; transform: scale(1, 1)       skewX(0deg);    }
+/* Искры вылетают один раз и гаснут */
+@keyframes spark-rise-short {
+  0%   { opacity: 0;   transform: translateY(0)     scale(.4); }
+  18%  { opacity: .95; }
+  70%  { opacity: .3;  }
+  100% { opacity: 0;   transform: translateY(-68px) scale(.9); }
 }
 
-/* Искры вылетают один раз и гаснут */
 @keyframes spark-rise {
   0%   { opacity: 0;   transform: translateY(0)      scale(.4); }
   18%  { opacity: .95; }
@@ -1338,6 +1350,28 @@ a:hover { color: var(--brand-700); }
   .header.is-scrolled .header__inner { height: var(--header-h); }
   .header.is-scrolled .logo img { height: 44px; }
 
+  /*
+     Размытие подложки на мобильных отключено: оно пересчитывается на
+     каждом кадре прокрутки и стоит дороже всей остальной анимации.
+     Вместо него — плотный непрозрачный фон.
+  */
+  .header {
+    background: rgba(255, 255, 255, .94);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .header.is-scrolled { background: #fff; }
+
+  .form {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* Пятна подсветки меньше — меньше площадь растрации блюра */
+  .hero__aurora--a { width: 340px; height: 340px; }
+  .hero__aurora--b { width: 300px; height: 300px; }
+  .hero__aurora    { filter: blur(48px); }
+
   .nav {
     position: fixed;
     inset: var(--header-h) 0 auto 0;
@@ -1345,9 +1379,7 @@ a:hover { color: var(--brand-700); }
     align-items: stretch;
     gap: 0;
     padding: 14px 26px 26px;
-    background: rgba(255, 255, 255, .97);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #fff;
     box-shadow: 0 24px 48px -24px rgba(7, 32, 58, .3);
     opacity: 0;
     visibility: hidden;
@@ -1418,6 +1450,9 @@ a:hover { color: var(--brand-700); }
 
   .stats { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
+
+  /* Сцена меньше — искры пролетают короче */
+  .spark { animation-name: spark-rise-short; }
   .facts { grid-template-columns: 1fr; gap: 20px; }
   .subhero__actions .btn { flex: 1 1 100%; }
 }

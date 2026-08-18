@@ -90,37 +90,19 @@
                   <stop offset="45%"  stop-color="#8ccdf2" />
                   <stop offset="100%" stop-color="#1e93d8" />
                 </linearGradient>
-                <filter id="flameGlow" x="-70%" y="-70%" width="240%" height="240%">
-                  <feGaussianBlur stdDeviation="9" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <filter id="coreGlow" x="-90%" y="-90%" width="280%" height="280%">
-                  <feGaussianBlur stdDeviation="5" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
               </defs>
 
-              <g class="flame__body">
-                <!-- Остроконечное пламя: вершина — излом, низ — округлый -->
-                <path class="flame__outer"
-                      d="M100 12c4 32 27 66 42 94 12 23 19 45 19 68 0 39-27 68-61 68s-61-29-61-68c0-23 7-45 19-68 15-28 38-62 42-94Z" />
-                <path class="flame__core"
-                      d="M100 104c2 20 17 44 25 60 7 14 10 26 10 37 0 21-15 36-35 36s-35-15-35-36c0-11 3-23 10-37 8-16 23-40 25-60Z" />
-              </g>
-
-              <g class="sparks">
-                <circle class="spark spark--1" cx="58"  cy="200" r="4"   />
-                <circle class="spark spark--2" cx="145" cy="188" r="3"   />
-                <circle class="spark spark--3" cx="76"  cy="216" r="2.6" />
-                <circle class="spark spark--4" cx="130" cy="210" r="3.4" />
-              </g>
+              <!-- Остроконечное пламя: вершина — излом, низ — округлый -->
+              <path class="flame__outer"
+                    d="M100 12c4 32 27 66 42 94 12 23 19 45 19 68 0 39-27 68-61 68s-61-29-61-68c0-23 7-45 19-68 15-28 38-62 42-94Z" />
+              <path class="flame__core"
+                    d="M100 104c2 20 17 44 25 60 7 14 10 26 10 37 0 21-15 36-35 36s-35-15-35-36c0-11 3-23 10-37 8-16 23-40 25-60Z" />
             </svg>
+
+            <span class="spark spark--1"></span>
+            <span class="spark spark--2"></span>
+            <span class="spark spark--3"></span>
+            <span class="spark spark--4"></span>
           </div>
         </div>
       </div>

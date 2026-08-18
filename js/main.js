@@ -52,7 +52,22 @@
   }
 
   /* ---------------------------------------------------------
-     3. Появление блоков при прокрутке
+     3. Освобождение слоёв после вступительной анимации
+     --------------------------------------------------------- */
+  function initLayerCleanup() {
+    const layers = document.querySelectorAll(
+      '.stage__disc, .stage__halo, .stage__ring, .flame, .spark, .hero__aurora'
+    );
+
+    // will-change держит слой в памяти видеокарты. Анимация одноразовая,
+    // поэтому сразу после неё подсказку снимаем.
+    layers.forEach((el) => {
+      el.addEventListener('animationend', () => { el.style.willChange = 'auto'; }, { once: true });
+    });
+  }
+
+  /* ---------------------------------------------------------
+     4. Появление блоков при прокрутке
      --------------------------------------------------------- */
   function initReveal() {
     const items = document.querySelectorAll('.reveal');
@@ -75,7 +90,7 @@
   }
 
   /* ---------------------------------------------------------
-     4. Счётчики в блоке «Показатели»
+     5. Счётчики в блоке «Показатели»
      --------------------------------------------------------- */
   function initCounters() {
     const counters = document.querySelectorAll('[data-count]');
@@ -119,7 +134,7 @@
   }
 
   /* ---------------------------------------------------------
-     5. Подсветка активного пункта меню
+     6. Подсветка активного пункта меню
      --------------------------------------------------------- */
   function initActiveNav() {
     const links = [...document.querySelectorAll('.nav__link')];
@@ -142,7 +157,7 @@
   }
 
   /* ---------------------------------------------------------
-     6. Форма обратной связи → Telegram
+     7. Форма обратной связи → Telegram
      --------------------------------------------------------- */
   function initForm() {
     const form = document.getElementById('feedbackForm');
@@ -335,6 +350,7 @@
   const init = () => {
     initHeader();
     initBurger();
+    initLayerCleanup();
     initReveal();
     initCounters();
     initActiveNav();
