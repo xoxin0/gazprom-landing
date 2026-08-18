@@ -137,23 +137,48 @@
      6. Подсветка активного пункта меню
      --------------------------------------------------------- */
   function initActiveNav() {
-    const links = [...document.querySelectorAll('.nav__link')];
-    const sections = links
-      .map((link) => document.querySelector(link.getAttribute('href')))
-      .filter(Boolean);
+    const items = [...document.querySelectorAll('.nav__link')]
+      .map((link) => ({ link, section: document.querySelector(link.getAttribute('href')) }))
+      .filter((item) => item.section);
 
-    if (!sections.length || !('IntersectionObserver' in window)) return;
+    if (!items.length) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        links.forEach((link) => {
-          link.classList.toggle('is-active', link.getAttribute('href') === `#${entry.target.id}`);
-        });
-      });
-    }, { threshold: 0.4, rootMargin: '-88px 0px -40% 0px' });
+    /*
+       Активен последний раздел, чьё начало прошло линию под шапкой.
 
-    sections.forEach((section) => observer.observe(section));
+       Наблюдатель пересечений здесь не годится: он считает долю от высоты
+       самого раздела, а на узких экранах разделы выше видимой области —
+       порог для них недостижим в принципе, и подсветка залипает
+       на единственном разделе, который в него укладывается.
+    */
+    const LINE = 140;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+
+      const line = window.scrollY + LINE;
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+      let current = null;
+      for (const item of items) {
+        if (item.section.getBoundingClientRect().top + window.scrollY <= line) current = item;
+      }
+
+      // У самого низа страницы активен последний раздел, даже если он короткий
+      if (atBottom) current = items[items.length - 1];
+
+      items.forEach((item) => item.link.classList.toggle('is-active', item === current));
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
   }
 
   /* ---------------------------------------------------------
